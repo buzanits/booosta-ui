@@ -39,4 +39,14 @@ abstract class UI extends \booosta\base\Module
 
   abstract public function get_js();
   abstract public function get_htmlonly();
+
+  protected function get_ready_code($code)
+  {
+    if(is_object($this->topobj) && is_a($this->topobj, '\booosta\webapp\webapp')) :
+      $this->topobj->add_jquery_ready($code);
+      return '';
+    else :
+      return "\$(document).ready(function(){ $code });";
+    endif;
+  }
 }
